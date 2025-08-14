@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css'; // Styling file
 
-const BACKEND_URL = 'http://localhost:3000'; // Make sure this is correct for local use
+const BACKEND_URL = 'https://udyam-project-backend-production.up.railway.app'; // Make sure this is correct for local use
 
 function App() {
   const [fields, setFields] = useState([]);
