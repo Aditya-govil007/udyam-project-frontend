@@ -1,8 +1,9 @@
+// NOTE: Add Aadhaar validation inside your handleSubmit as shown in the guide.
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css'; // Styling file
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = 'http://localhost:3000'; // Make sure this is correct for local use
 
 function App() {
   const [fields, setFields] = useState([]);
