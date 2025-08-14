@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './App.css'; // Styling file ko import karna zaroori hai
+import './App.css'; 
+
+// Environment variable se live backend URL
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 function App() {
   const [fields, setFields] = useState([]);
   const [formData, setFormData] = useState({});
   const [status, setStatus] = useState('');
   const [currentStep, setCurrentStep] = useState(1);
-  
   const [pinCode, setPinCode] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/form-fields')
+    // Frontend ab live backend URL se data fetch karega
+    axios.get(`${BACKEND_URL}/api/form-fields`)
       .then(res => setFields(res.data))
       .catch(err => setStatus('Error fetching form data.'));
   }, []);
@@ -29,13 +32,13 @@ function App() {
           } else {
             setCity('');
             setState('');
-            setStatus('Invalid PIN code.');
+            setStatus('Error: Invalid PIN code.');
           }
         })
         .catch(err => {
           setCity('');
           setState('');
-          setStatus('Error fetching PIN code data.');
+          setStatus('Error: Could not fetch PIN code data.');
         });
     }
   }, [pinCode]);
@@ -68,7 +71,8 @@ function App() {
     }
 
     try {
-      const res = await axios.post('http://localhost:3000/api/submit', { ...formData, city, state });
+      // Form submission ab live backend URL par jayega
+      const res = await axios.post(`${BACKEND_URL}/api/submit`, { ...formData, city, state });
       setStatus('Form submitted successfully!');
       console.log(res.data);
     } catch (err) {
